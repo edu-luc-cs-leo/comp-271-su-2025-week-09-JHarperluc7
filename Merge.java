@@ -44,7 +44,8 @@ public class Merge {
      * then passing them to the merge method. 
      * 
      * @param array int[] array to sort
-     * @returns sorted int[]
+     *
+     * @return sorted int[]
      */
     static int[] mergeSort(int[] array) {
         // Initialize the output
@@ -57,15 +58,22 @@ public class Merge {
         } else {
             // Split input array into two halves
             int mid = array.length / 2;
-            int[] left = new int[mid];
-            int[] right = new int[mid];
+            int leftSize = mid; // This makes the size of the left array explicit, improving readability and avoiding magic expressions.
+
+            int rightSize = array.length - mid; // This gives the right array the correct size (especially important for odd-length input arrays).
+
+            int[] left = new int[leftSize]; // Uses the new `leftSize` variable instead of duplicating the expression.
+
+            int[] right = new int[rightSize]; // Uses the new `rightSize` variable to avoid a magic number and ensure correctness.
+
             // populate left half
-            for (int i = 0; i < mid; i++) {
+            for (int i = 0; i < leftSize; i++) { 
                 left[i] = array[i];
             }
+
             // populate right half ... index i-mid for 0, 1, ... for right array
-            for (int i = mid; i < array.length; i++) {
-                right[i - mid] = array[i];
+            for (int i = 0; i < rightSize; i++) { 
+                right[i] = array[i + mid];
             }
             // Feed the halves to this method in case they need to be halved again
             int[] sortedLeft = mergeSort(left);
